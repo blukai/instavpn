@@ -1,3 +1,5 @@
+#!/bin/bash
+
 [ -d instavpn ] && rm -rf instavpn/
 
 echo "Installing git, python"

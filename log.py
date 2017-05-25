@@ -1,4 +1,4 @@
-import logging, StringIO, time, sys
+import logging
 
 def setup_logging():
     # create logger
@@ -7,7 +7,7 @@ def setup_logging():
 
     # create console handler and set level to debug
     ch = logging.StreamHandler()
-    ch.setLevel(logging.DEBUG)
+    ch.setLevel(logging.INFO)
 
     # add ch to logger
     logger.addHandler(ch)

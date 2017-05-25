@@ -41,7 +41,7 @@ def install_packages():
 
 
 def setup_sysctl():
-    if not run_command("sh files/sysctl.sh"):
+    if not run_command("bash configs/sysctl.sh"):
         return False
     return True
 
@@ -66,22 +66,22 @@ def setup_passwords():
 
 def cp_configs():
     logger.debug('xl2tpd.conf')
-    if not run_command("cp files/xl2tpd.conf /etc/xl2tpd/xl2tpd.conf"):
+    if not run_command("cp configs/xl2tpd.conf /etc/xl2tpd/xl2tpd.conf"):
         return False
 
     logger.debug('options.xl2tpd')
-    if not run_command("cp files/options.xl2tpd /etc/ppp/options.xl2tpd"):
+    if not run_command("cp configs/options.xl2tpd /etc/ppp/options.xl2tpd"):
         return False
 
     logger.debug('ipsec.conf.template')
-    if not run_command("cp files/ipsec.conf.template /etc/ipsec.conf.template"):
+    if not run_command("cp configs/ipsec.conf.template /etc/ipsec.conf.template"):
         return False
 
     return True
 
 def setup_vpn():
     logger.debug('Write setup-vpn.sh to /etc')
-    if not run_command("cp files/setup-vpn.sh /etc/setup-vpn.sh"):
+    if not run_command("cp setup-vpn.sh /etc/setup-vpn.sh"):
         return False
 
     logger.debug('Add to rc.local')
@@ -105,7 +105,7 @@ def setup_vpn():
         logger.warn('ufw not found')
 
     logger.debug('Copy CLI')
-    if not run_command("chmod +x files/instavpn && cp files/instavpn /usr/bin/instavpn"):
+    if not run_command("chmod +x cli.py && cp cli.py /usr/bin/instavpn"):
         return False
 
     return True
