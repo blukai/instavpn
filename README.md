@@ -20,6 +20,4 @@ instavpn user get <username>            # Get password
 instavpn user set <username> <password> # Set password or create user if not exists
 instavpn user delete <username>         # Delete user
 instavpn user list                      # List all users
-instavpn web mode [on|off]              # Turn on/off web UI
-instavpn web set <username> <password>  # Set username/password for web UI
 ```

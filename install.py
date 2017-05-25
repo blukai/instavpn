@@ -46,12 +46,6 @@ def main():
     else:
         logger.critical("Failed adding script to rc.local")
 
-    logger.info("Installing web UI...")
-    if util.webui():
-        logger.info("OK")
-    else:
-        logger.critical("Failed installing web UI")
-
     util.info()
 
 main()

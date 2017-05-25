@@ -1,4 +1,4 @@
-import platform, os, logging_subprocess, random, string, logging, sys, json, urllib2, fileinput
+import platform, os, logging_subprocess, random, string, logging, sys, fileinput
 
 logger = logging.getLogger()
 
@@ -29,12 +29,8 @@ def install_packages():
     if not run_command("apt-get -y upgrade"):
         return False
 
-    logger.debug('Install node.js')
-    if not run_command("apt-get install -y nodejs-legacy npm build-essential libssl-dev"):
-        return False
-
     logger.debug('Install vnstat')
-    if not run_command("apt-get install -y vnstat vnstati"):
+    if not run_command("apt-get install -y vnstat"):
         return False
 
     logger.debug('Install VPN server packages')
@@ -114,53 +110,7 @@ def setup_vpn():
 
     return True
 
-CRONTAB = 'crontab -l | { cat; echo "* * * * * vnstati -s -i eth0 -o /opt/instavpn/public/images/vnstat.png"; } | crontab -'
-
-def webui():
-    logger.debug('Generate random password')
-    char_set = string.ascii_lowercase + string.ascii_uppercase + string.digits
-    with open('web/server/credentials.json', 'w') as f:
-        json.dump({
-            "admin": {
-                "login": "admin",
-                "password": gen_random_text(16)
-            }
-        }, f)
-
-    logger.debug('Copy web UI directory')
-    # it fix web UI critical error
-    if not run_command("mkdir --mode=755 -p /opt"):
-        return False
-    #end
-    if not run_command("cp -rf web/ /opt/instavpn"):
-        return False
-
-    logger.debug('Install node_modules')
-    if not run_command("cd /opt/instavpn && npm install"):
-        return False
-
-    logger.debug('Copy upstart script')
-    if not run_command("cp files/instavpn.conf /etc/init"):
-        return False
-
-    logger.debug('Add vnstati to cron')
-    if not run_command(CRONTAB):
-        return False
-
-    logger.debug('Start service')
-    if not run_command("start instavpn"):
-        return False
-
-    return True
-
-
 def info():
     logger.info('')
-
-    with open('/opt/instavpn/server/credentials.json') as f:
-        json_data = json.load(f)
-        logger.info('Browse web UI at http://' + urllib2.urlopen("http://myip.dnsdynamic.org/").read() + ':8080/')
-        logger.info("  Username: {}".format(json_data["admin"]["login"]))
-        logger.info("  Password: {}".format(json_data["admin"]["password"]))
 
     logger.info("Completed. Run 'instavpn -h' for help")

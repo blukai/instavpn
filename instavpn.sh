@@ -1,9 +1,9 @@
 [ -d instavpn ] && rm -rf instavpn/
 
-echo "Installing git, cron, python"
+echo "Installing git, python"
 
 if [[ ! -z $(which apt-get) ]]; then
-    apt-get install -y git cron python > /dev/null
+    apt-get install -y git python > /dev/null
     echo "Ok"
 else
     echo "You must use Ubuntu"
