@@ -7,7 +7,7 @@
 
 ### Install
 ```bash
-curl -sS https://raw.githubusercontent.com/sockeye44/instavpn/master/instavpn.sh | sudo bash
+curl -sS https://raw.githubusercontent.com/blukai/instavpn/master/instavpn.sh | sudo bash
 ```
 
 ### CLI
